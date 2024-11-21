@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Example</title>
+</head>
+<body>
+    <div id="main"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script>
+        const h1 = React.createElement(
+            'h1', 
+            { key: "firstid", className: "firstclass", style: { backgroundColor: "green" } }, 
+            "Devanshu Gupta" 
+        );
+        const h2 = React.createElement(
+            'h1', 
+            { key: "secondid", className: "Secondclass", style: { backgroundColor: "yellow" } }, 
+            "Devanshu Gupta" 
+        );
+        const div=React.createElement('div',{},[h1 ,h2])
+        const root = ReactDOM.createRoot(document.getElementById('main'));
+        root.render(div); 
+    </script>
+</body>
+</html>
