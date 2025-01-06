@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Allcard from './component/Allcard'
+import Allcards from './component/Allcard'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <input type="text" placeholder='Search Products..' />
         <button>Search</button>
       </div>
-      <Allcard/>
+      <Allcards/>
     </div>
   )
 }
