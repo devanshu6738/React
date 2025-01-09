@@ -1,27 +1,29 @@
 import { useState } from "react";
 
 function App() {
-  const[email,setemail]=useState('')
-  const[password,setpassword]=useState('')
+  const[data,setData]=useState({"email":"","password":""})
 
   function formSubmit(submit){
      submit.preventDefault();
-     console.log({email,password}); 
+     console.log(data); 
 
   }
-  function EmailChange(event){
-    setemail(event.target.value)
-  }
-  function PasswordChange(event){
-    setpassword(event.target.value)
+  function handleForm(event){
+    setData((prevData)=>({...prevData,[event.target.name]:event.target.value}))
   }
   return (
 
  <form action="">
-  <input type="text" placeholder="email" onChange={EmailChange}/>
+  <input type="text" placeholder="email" onChange={handleForm}
+  name="email" 
+  value={data.email}
+  />
   <br />
   <br />
-  <input type="password" placeholder="password" onChange={PasswordChange}/>
+  <input type="password" placeholder="password" onChange={handleForm} 
+  name="password"
+  value={data.password}
+  />
   <br />
   <br />
   <button onClick={formSubmit}>Login</button>
