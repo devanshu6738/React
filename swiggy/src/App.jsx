@@ -8,7 +8,7 @@ function App() {
     <Routes>
       <Route path="/" element={<NavigationBar/>}>
       <Route path="/" element={<Body/>}/>
-      <Route path="/resmenu" element={<ResMenu/>}/>
+      <Route path="/resmenu/:id" element={<ResMenu/>}/>
      </Route>
     </Routes>
   )

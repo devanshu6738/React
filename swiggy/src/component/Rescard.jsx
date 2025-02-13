@@ -1,8 +1,10 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 function Rescard(info) {
+    // console.log(info?.link?.split("/").at(-1));
+    
   return (
-    <Link to={`/resmenu/${info.id}`}>
+    <Link to={`/resmenu/${info?.link?.split("/")?.at(-1)}`}>                                                                                                                               
        <div className="min-w-[295px] h-[182px] relative ">
                 <img
                     className="w-full h-full  rounded-2xl object-cover "

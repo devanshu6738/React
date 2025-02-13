@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Rescard from './Rescard';
 
 function TopRes({data}) {
-  console.log(data)
   const [value,Setvalue]=useState(0);
   // const [data,Setdata]=useState([])
   function handlePrev(){
@@ -41,9 +40,9 @@ function TopRes({data}) {
       </div>
     <div className='flex mt-4 gap-6 duration-300' style={{translate:`${value}%`}}>
       {
-        data.map(({info})=>(
+        data.map(({info,cta:{link}})=>(
      <div className='hover:scale-95 duration-300'>
-        <Rescard {...info}/>
+        <Rescard {...info} link={link}/>
      </div>
         ))
       }
