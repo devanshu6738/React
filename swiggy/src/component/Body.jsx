@@ -9,8 +9,9 @@ function Body() {
   const[onYourmindData,SetonYourMindData]=useState([]);
   const[topFood,SettopFood]=useState([])
  async function FetchData(){
-         const data=await fetch("https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=29.15010&lng=75.71760&carousel=true&third_party_vendor=1")
+         const data=await fetch("https://chocolate-hedy-93.tiiny.site/swiggydata.json")
          const result=await data.json();
+         console.log(result.data.cards);
          
          SettopResdata(result.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
          SetonYourMindData(result.data.cards[0].card.card.imageGridCards.info)
