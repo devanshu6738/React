@@ -19,7 +19,7 @@ function ResMenu() {
 
     const[discountData,setDiscountData]=useState([])
     async function fetchMenu(){
-        let data=await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.9690247&lng=72.8205292&restaurantId=683064&catalog_qa=undefined&submitAction=ENTER`)
+        let data=await fetch(`https://tomato-cory-60.tiiny.site/data.json`)
         let result =await data.json();
         
         SetresInfo(result.data.cards[2].card.card.info)
@@ -118,21 +118,24 @@ function MenuCard({card}){
   if(card.itemCards){
     const{itemCards,title}=card
     return(
+     <>
       <div>
        <div className='flex justify-between'>
-       <h1>{title} ({itemCards.length})</h1>
-       <i class="fi fi-rr-angle-small-up text-2xl" onClick={toggleDropdown}></i>
+       <h1 className={'font-bold text-'+(card.type ? "lg":"md")}>{title} ({itemCards.length})</h1>
+       <i class={"text-2xl fi fi-rr-angle-small-"+(isOpen ? "up":"down")} onClick={toggleDropdown}></i>
        </div>
       {
         isOpen &&  <DetailMenu itemCards={itemCards}/>
       }
       </div>
+      <hr className={'my-5 border-gray-100 border-'+(card.type ? "[10px]":"[8px]" )}/>
+     </>
     )
   }else{
     const{title,categories}=card;
     return(
       <div>
-        <h1>{card.title}</h1>
+        <h1 className='text-lg font-bold'>{card.title}</h1>
         {
           categories.map((data)=>(
             <MenuCard card={data}/>
@@ -147,8 +150,15 @@ function DetailMenu({itemCards}){
   return(
     <div className='m-5'>
       {
-        itemCards.map(({card:{info}})=>(
-            <h1>{info.name}</h1>
+        itemCards.map(({card:{info:{name,price,itemAttribute:{vegClassifier},ratings:{aggregatedRating:{rating,ratingCountV2}},description,imageId}}})=>(
+            <div>
+              <div>
+
+              </div>
+              <div>
+                
+              </div>
+            </div>
         ))
       }
     </div>
