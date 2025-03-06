@@ -147,19 +147,37 @@ function MenuCard({card}){
   
 }
 function DetailMenu({itemCards}){
+  
   return(
-    <div className='m-5'>
+    <div className='my-5'>
       {
-        itemCards.map(({card:{info:{name,price,itemAttribute:{vegClassifier},ratings:{aggregatedRating:{rating,ratingCountV2}},description,imageId}}})=>(
-            <div>
-              <div>
-
+        itemCards.map(({card:{info:{name,price,defaultPrice,itemAttribute:{vegClassifier},ratings:{aggregatedRating:{rating,ratingCountV2}},description,imageId}}})=>{
+          const[isMore,SetisMore]=useState(true)
+          return(
+           <>
+            <div className='flex w-full justify-between min-h-[182px]'>
+              <div className='w-[70%]'>
+                {
+                (vegClassifier=='VEG') ? <img src="https://www.clipartmax.com/png/full/206-2065891_soups-and-salads-veg-logo-png.png" className='w-5'/> : <img src="https://freesvg.org/img/1531813245.png" className='w-5'/> 
+                } 
+                <h1 className='text-lg font-bold'>{name}</h1>
+                <p className='font-semibold'>₹{price/100 || defaultPrice/100  }</p>
+                <div className='flex items-center gap-1'><i class="fi fi-ss-star text-green-700 text-sm mt-1"></i> <span>{rating}({ratingCountV2})</span></div>
+                <div>
+                {
+                 isMore?<span className='text-slate-600 font-sm line-clamp-2'>{description}</span>:<span className='text-slate-600 font-sm '>{description}</span>
+                }
+                <span><button className='font-bold text-slate-600' onClick={()=>SetisMore(!isMore)}>{isMore?"more":"less"}</button></span>  
+                </div>
               </div>
-              <div>
-                
+              <div className='w-[30%] flex flex-col items-end justify-center relative h-full' >
+                <img className='w-40 rounded-2xl' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/"+ imageId} alt="" />
+                <button className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-33 left-25'>ADD</button>
               </div>
             </div>
-        ))
+            <hr className='my-5 text-gray-300'/>
+           </>
+        )})
       }
     </div>
     )
