@@ -16,7 +16,7 @@ function ResMenu() {
     // console.log(menudata)
     const[resInfo,SetresInfo]=useState([])
     // const[currentIdx,SetcurrentIdx]=useState(true)
-
+    const[topPick,setTopPick]=useState(null)
     const[discountData,setDiscountData]=useState([])
     async function fetchMenu(){
         let data=await fetch(`https://tomato-cory-60.tiiny.site/data.json`)
@@ -25,8 +25,12 @@ function ResMenu() {
         SetresInfo(result.data.cards[2].card.card.info)
         setDiscountData(result.data.cards[3].card.card.gridElements.infoWithStyle.offers)
         let actualData=(result.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards).filter((data)=>data?.card?.card?.itemCards || data?.card?.card?.categories)
-        console.log(result.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards)
+        // console.log(result.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards)
+        let actualMenu=result.data.cards[4].groupedCard.cardGroupMap
         Setmenudata(actualData);
+        setTopPick(actualData)
+        // console.log((result.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards).filter(data=>data.card.card.title))
+        // console.log(actualMenu)
     }
     useEffect(()=>{
         fetchMenu();
@@ -92,6 +96,21 @@ function ResMenu() {
         <div className='w-full p-3 rounded-2xl font-semibold text-gray-700 bg-gray-100 text-center'>Search for dishes</div>
         <i class="fi fi-rr-search absolute top-3 right-4"></i>
       </div>
+      <div className='flex justify-between mt-6'>
+        <h1 className='text-xl font-bold '>Deals for you</h1>
+        <div className='flex gap-3'>
+        <div className=' bg-[#D8D9DA] rounded-full w-9 h-9 flex items-center justify-center cursor-pointer' onClick={handlePrev}>
+        <i className="fi fi-rr-arrow-small-left text-2xl"></i>
+        </div>
+        <div className=' bg-[#D8D9DA] rounded-full w-9 h-9 flex items-center justify-center cursor-pointer' onClick={handleNext}>
+        <i className="fi fi-rr-arrow-small-right text-2xl"></i>
+        </div>
+        <div>
+          {/* <h1>{console.log(topPick[1].card)}</h1> */}
+        </div>
+        </div>
+        
+        </div>
       <div>
         {
           menudata.map(({card:{card}})=>(
