@@ -1,6 +1,7 @@
 import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Outlet,Link } from 'react-router-dom'
+import { Coordinate } from './utils/contextApi'
 
 function NavigationBar() {
   const navItem=[
@@ -31,6 +32,8 @@ function NavigationBar() {
   ]
   const[visible,setVisible]=useState(false)
   const[SearchTarget,setSearchTarget]=useState([])
+  const[address,Setaddress]=useState("")
+    const{setCord}=useContext(Coordinate)  
   function handleSearch(){
     console.log("clicked")
     setVisible(prev=> !prev)
@@ -44,15 +47,18 @@ function NavigationBar() {
     }
     const res=await fetch(`https://www.swiggy.com/dapi/misc/place-autocomplete?input=${value}`);
     const data=await res.json();
-    console.log(data)
+    Setaddress(data.data[0].description)
     setSearchTarget(data.data)
   }
   async function fetchLatAndLong(val){
     console.log(val);
     const res=await fetch(`https://www.swiggy.com/dapi/misc/address-recommend?place_id=${val}`)
     const data=await res.json();
-    console.log(data.data[0].geometry.location.lat)
-    console.log(data.data[0].geometry.location.lng)
+
+    setCord({
+      lat:data.data[0].geometry.location.lat,
+      lng:data.data[0].geometry.location.lng,
+    })
     
   }
   return (
@@ -94,6 +100,7 @@ function NavigationBar() {
        </Link>
        <div className='flex gap-2 items-center' onClick={handleSearch}>
        <p className='font-bold border-b-2'>other</p>
+       <p className='font-semibold text-gray-500'>{address}</p>
        <i className="fi mt-1 fi-rr-angle-small-down text-[#FF5200] text-xl"></i>
        </div>
       </div>
