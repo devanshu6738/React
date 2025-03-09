@@ -1,39 +1,46 @@
 import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons'
 import React, { useContext, useState } from 'react'
 import { Outlet,Link } from 'react-router-dom'
-import { Coordinate } from './utils/contextApi'
+import { AddToCart, Coordinate } from './utils/contextApi'
 
 function NavigationBar() {
   const navItem=[
     {
       image:<i className="fi fi-rr-shopping-bag mt-1"></i>,
-      name:"Swiggy Corporate"
+      name:"Swiggy Corporate",
+      path:"/corporate"
     },
     {
       image:<i className="fi fi-rr-search mt-1"></i>,
-      name:"Search"
+      name:"Search",
+      path:"/search"
     },
     {
       image:<i className="fi fi-rr-badge-percent mt-1"></i>,
-      name:"Offers"
+      name:"Offers",
+      path:"/offer"
     },
     {
       image:<i className="fi fi-rs-interrogation mt-1"></i>,
-      name:"Help"
+      name:"Help",
+      path:"help"
     },
     {
       image:<i className="fi fi-rs-user mt-1"></i>,
-      name:"Sign Ine"
+      name:"Sign In",
+      path:"/signin"
     },
     {
       image:<i className="fi fi-br-shopping-cart mt-1"></i>,
-      name:"Cart"
+      name:"Cart",
+      path:"/cart"
     }
   ]
   const[visible,setVisible]=useState(false)
   const[SearchTarget,setSearchTarget]=useState([])
   const[address,Setaddress]=useState("")
     const{setCord}=useContext(Coordinate)  
+    const{cartdata,SetcartData}=useContext(AddToCart)
   function handleSearch(){
     console.log("clicked")
     setVisible(prev=> !prev)
@@ -64,7 +71,7 @@ function NavigationBar() {
   return (
     <div className='relative'>
     {visible && <div className='w-full z-40 bg-black/50 h-full absolute'>
-       <div className={'text-black bg-white p-10 w-[40%] h-full z-50  flex flex-col absolute duration-300'}  >
+       <div className={'text-black bg-white p-10 w-[40%] h-full z-50  flex flex-col absolute duration-300 items-end'}  >
         <p onClick={handleVisibility}><i class="fi fi-rr-cross-small text-3xl"></i></p>
         <div className='w-[70%] flex flex-col gap-5'>
         <input 
@@ -100,17 +107,21 @@ function NavigationBar() {
        </Link>
        <div className='flex gap-2 items-center' onClick={handleSearch}>
        <p className='font-bold border-b-2'>other</p>
-       <p className='font-semibold text-gray-500'>{address}</p>
+       <p className='font-semibold text-gray-500 line-clamp-1'>{address}</p>
        <i className="fi mt-1 fi-rr-angle-small-down text-[#FF5200] text-xl"></i>
        </div>
       </div>
+    
       <div className='flex items-center gap-12 '>
         {
           navItem.map((data)=>(
+           <Link to={data.path}>
             <div className='flex gap-2'>
             {data.image}
             <p className='font-semibold text-gray-600'>{data.name}</p>
+            {data.name==="Cart" && <p className='text-[#FF5622] text-md font-semibold '>{(cartdata.length==0?"":cartdata.length)}</p>}
           </div>
+           </Link>
           ))
         }
       </div>

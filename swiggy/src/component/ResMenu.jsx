@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams ,Link, data} from 'react-router-dom'
+import { AddToCart } from './utils/contextApi'
 
 function ResMenu() {
   
@@ -170,8 +171,13 @@ function DetailMenu({itemCards}){
   return(
     <div className='my-5'>
       {
-        itemCards.map(({card:{info:{name,price,defaultPrice,itemAttribute:{vegClassifier},ratings:{aggregatedRating:{rating,ratingCountV2}},description,imageId}}})=>{
+        itemCards.map(({card:{info}})=>{
+          const{name,price,defaultPrice,itemAttribute:{vegClassifier},ratings:{aggregatedRating:{rating,ratingCountV2}},description,imageId}=info
           const[isMore,SetisMore]=useState(true)
+          const{cartdata,SetcartData}=useContext(AddToCart)
+          function handleAddtoCart(){
+            SetcartData((prev)=>[...prev, info])
+          }
           return(
            <>
             <div className='flex w-full justify-between min-h-[182px]'>
@@ -191,7 +197,7 @@ function DetailMenu({itemCards}){
               </div>
               <div className='w-[30%] flex flex-col items-end justify-center relative h-full' >
                 <img className='w-40 rounded-2xl' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/"+ imageId} alt="" />
-                <button className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-33 left-25'>ADD</button>
+                <button onClick={handleAddtoCart} className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-33 left-25'>ADD</button>
               </div>
             </div>
             <hr className='my-5 text-gray-300'/>
@@ -212,5 +218,6 @@ function Discount({data:{info:{header,offerLogo,couponCode}}}){
     </div>
   )
 }
+
 
 export default ResMenu
