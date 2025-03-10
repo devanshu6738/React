@@ -13,6 +13,7 @@ function ResMenu() {
   }
     const {id}=useParams()
     let mainId=id.split("-").at(-1)
+    let resChange=mainId.slice(4)
     const[menudata,Setmenudata]=useState([])
     // console.log(menudata)
     const[resInfo,SetresInfo]=useState([])
@@ -20,7 +21,7 @@ function ResMenu() {
     const[topPick,setTopPick]=useState(null)
     const[discountData,setDiscountData]=useState([])
     async function fetchMenu(){
-        let data=await fetch(`https://tomato-cory-60.tiiny.site/data.json`)
+        let data=await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.9690247&lng=72.8205292&restaurantId=${resChange}&catalog_qa=undefined&submitAction=ENTER`)
         let result =await data.json();
         
         SetresInfo(result.data.cards[2].card.card.info)
@@ -176,7 +177,13 @@ function DetailMenu({itemCards}){
           const[isMore,SetisMore]=useState(true)
           const{cartdata,SetcartData}=useContext(AddToCart)
           function handleAddtoCart(){
-            SetcartData((prev)=>[...prev, info])
+            const isAdded=cartdata.find((data)=>data.id===info.id);
+            if(!isAdded){
+              SetcartData((prev)=>[...prev, info])
+              localStorage.setItem("cartData",JSON.stringify([...cartdata,info]))
+            }else{
+              alert("Already Added")
+            }
           }
           return(
            <>
@@ -196,8 +203,8 @@ function DetailMenu({itemCards}){
                 </div>
               </div>
               <div className='w-[30%] flex flex-col items-end justify-center relative h-full' >
-                <img className='w-40 rounded-2xl' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/"+ imageId} alt="" />
-                <button onClick={handleAddtoCart} className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-33 left-25'>ADD</button>
+                <img className='w-40 h-35 rounded-2xl' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/"+ imageId} alt="" />
+                <button onClick={handleAddtoCart} className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-31 left-25'>ADD</button>
               </div>
             </div>
             <hr className='my-5 text-gray-300'/>

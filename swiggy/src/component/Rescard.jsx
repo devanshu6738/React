@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 function Rescard(info) {
-    // console.log(info?.link?.split("/").at(-1));
+    // console.log(info.link?.split("/").at(-1));
     
   return (
     <Link to={`/resmenu/${info?.link?.split("/")?.at(-1)}`}>                                                                                                                               

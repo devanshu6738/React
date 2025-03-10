@@ -8,9 +8,9 @@ function OnlineFood({data}) {
      <h1 className='text-2xl font-bold'>Restaurants with online food delivery in Delhi</h1>
      <div className='grid grid-cols-4 gap-7 mt-6'>
      {
-        data.map(({info})=>(
+        data.map(({info,cta:{link}})=>(
      <div className='hover:scale-95 duration-300'>
-        <Rescard {...info}/>
+        <Rescard {...info} link={link}/>
      </div>
         ))
       }
