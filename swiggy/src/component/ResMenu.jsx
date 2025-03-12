@@ -116,7 +116,7 @@ function ResMenu() {
       <div>
         {
           menudata.map(({card:{card}})=>(
-            <MenuCard card={card}/>
+            <MenuCard card={card} resInfo={resInfo}/>
           ))
         }
         
@@ -126,7 +126,8 @@ function ResMenu() {
     </div>
   )
 }
-function MenuCard({card}){
+function MenuCard({card,resInfo}){
+  console.log(resInfo)
   let check=true;
   if(card.type){
     check=false
@@ -146,7 +147,7 @@ function MenuCard({card}){
        <i class={"text-2xl fi fi-rr-angle-small-"+(isOpen ? "up":"down")} onClick={toggleDropdown}></i>
        </div>
       {
-        isOpen &&  <DetailMenu itemCards={itemCards}/>
+        isOpen &&  <DetailMenu itemCards={itemCards} resInfo={resInfo}/>
       }
       </div>
       <hr className={'my-5 border-gray-100 border-'+(card.type ? "[10px]":"[8px]" )}/>
@@ -159,7 +160,7 @@ function MenuCard({card}){
         <h1 className='text-lg font-bold'>{card.title}</h1>
         {
           categories.map((data)=>(
-            <MenuCard card={data}/>
+            <MenuCard card={data} resInfo={resInfo}/>
           ))
         }
       </div>
@@ -167,7 +168,7 @@ function MenuCard({card}){
   }
   
 }
-function DetailMenu({itemCards}){
+function DetailMenu({itemCards,resinfo}){
   
   return(
     <div className='my-5'>
@@ -204,7 +205,7 @@ function DetailMenu({itemCards}){
               </div>
               <div className='w-[30%] flex flex-col items-end justify-center relative h-full' >
                 <img className='w-40 h-35 rounded-2xl' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/"+ imageId} alt="" />
-                <button onClick={handleAddtoCart} className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-31 left-25'>ADD</button>
+                <button onClick={handleAddtoCart} className='bg-white px-11 py-2 rounded-xl border border-gray-300 text-green-600 font-bold absolute top-30 left-24'>ADD</button>
               </div>
             </div>
             <hr className='my-5 text-gray-300'/>

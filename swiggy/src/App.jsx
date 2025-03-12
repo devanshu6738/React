@@ -5,6 +5,7 @@ import ResMenu from "./component/ResMenu"
 import { useEffect, useState } from "react"
 import { AddToCart, Coordinate } from "./component/utils/contextApi"
 import Cart from "./component/cart"
+import SigninPage from "./component/SigninPage"
 function App() {
   const [cord,setCord]=useState({lat:18.9690247,lng:72.8205292})
   const [cartdata,SetcartData]=useState([])
@@ -24,6 +25,7 @@ function App() {
       <Route path="/" element={<Body/>}/>
       <Route path="/resmenu/:id" element={<ResMenu/>}/>
       <Route path="/cart" element={<Cart/>}/>
+      <Route path="/signin" element={<SigninPage/>}/>
       <Route path="*" element={<h1>page not found</h1>}/>
      </Route>
     </Routes>
